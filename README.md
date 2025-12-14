@@ -44,7 +44,7 @@ Frequency resolution:
 
 ## Project Structure (planned)
 
-- `rtl/`
+- `hdl/`
   - `dds_core.sv`        — phase accumulator + FCW interface
   - `spi_dac_controller` - spi-based controller for the MCP4921 DAC
   - `waveforms.sv`       — square/ramp/triangle/DC from phase
