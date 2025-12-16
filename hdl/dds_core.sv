@@ -1,14 +1,12 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-// ============================================================================
 // Direct Digital Synthesis (DDS) Core
 // - 16-bit frequency word in Hz
 // - Waveforms: Sine, Square, Triangle, Ramp, DC
 // - 12-bit unsigned output for DAC (0–4095)
 //
 // freq_word = 1 => 1 Hz output when sample rate = 1.0411 MS/s
-// ============================================================================
 
 module dds_core #(
     parameter int PHASE_WIDTH = 24,     // NCO phase accumulator width
@@ -25,11 +23,9 @@ module dds_core #(
     output logic [AMP_WIDTH-1:0] wave_out   // DAC output sample 
 );
 
-    // ------------------------------------------------------------------------
     // Phase increment computation
     //   phase_inc = freq_word * (2 ^ PHASE_WIDTH) / FS_HZ
     // using MULT = ((2 ^ PHASE_WIDTH) / FS_HZ )* 2^4 to maintain precision
-    // ------------------------------------------------------------------------
     localparam int unsigned MULT = (1 << (PHASE_WIDTH + 4)) / FS_HZ; // to be descaled down by 2^4
     logic [PHASE_WIDTH-1:0] phase_inc;
     logic [PHASE_WIDTH + 19:0] phase_inc_scaled;
@@ -40,7 +36,7 @@ module dds_core #(
             phase_inc <= '0;
         end else begin
             phase_inc_scaled <= freq_word * MULT;
-            phase_inc <= phase_inc_scaled >> 4;
+            phase_inc <= phase_inc_scaled >> 4; // needs to pick the LSBs
         end
     end
 
@@ -55,9 +51,6 @@ module dds_core #(
             phase_acc <= phase_acc + phase_inc;
     end
 
-    // Derived phase portions
-    logic [LUT_ADDR_BITS-1:0] lut_addr;
-    assign lut_addr = phase_acc[PHASE_WIDTH-1 -: LUT_ADDR_BITS];
 
 
     // Waveform computations
@@ -73,23 +66,31 @@ module dds_core #(
     assign square_val = phase_acc[PHASE_WIDTH-1] ? MAX : '0;
 
     // TRIANGLE
+    logic [PHASE_WIDTH-2:0] max_tri;
+    logic [PHASE_WIDTH-2:0] tri_intermediate;
+
+    assign max_tri = {PHASE_WIDTH{1'b1}};
     always_comb begin
+        
         if (phase_acc[PHASE_WIDTH-1])
-            tri_val = ~phase_acc[PHASE_WIDTH-2 -: AMP_WIDTH] << 1;
+            tri_intermediate = ~phase_acc[PHASE_WIDTH-2:0];
         else
-            tri_val = phase_acc[PHASE_WIDTH-2 -: AMP_WIDTH] << 1;
+            tri_intermediate = phase_acc[PHASE_WIDTH-2:0];
+        tri_val = tri_intermediate[PHASE_WIDTH-2 -: AMP_WIDTH-1];
+        
     end
 
     
 
     // SINE (ROM-based lookup)
     sine_lut #(
-        .PHASE_WIDTH (LUT_ADDR_BITS),
+        .PHASE_WIDTH (PHASE_WIDTH),
+        .LUT_ADDR_BITS(LUT_ADDR_BITS),
         .AMP_WIDTH (AMP_WIDTH),
-        .RAM_PERFORMACE ("HIGH_PERFORMANCE")
+        .RAM_PERFORMANCE ("HIGH_PERFORMANCE")
     ) lut_inst (
         .clk (clk),
-        .phase (lut_addr),
+        .phase_acc (phase_acc),
         .sine_out (sine_val)
     );
 
@@ -103,7 +104,7 @@ module dds_core #(
             unique case (wave_sel)
                 3'd0: wave_out <= sine_val;
                 3'd1: wave_out <= square_val;
-                3'd2: wave_out <= tri_val;
+                3'd2: wave_out <= tri_val << 1;
                 3'd3: wave_out <= ramp_val;
                 3'd4: wave_out <= dc_level;
                 default: wave_out <= dc_level;

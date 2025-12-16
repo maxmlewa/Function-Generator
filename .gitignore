@@ -1,0 +1,4 @@
+# GITIGNORE for the Function Generator project
+
+# Python script for .mem generation
+miscellaneous/

@@ -1,9 +1,9 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-// MCP4921 (12-bit) SPI interface (SPI Mode 0: CPOL=0, CPHA=0)
+// MCP4921 (12-bit) SPI interface (SPI Mode 0)
 // 16-bit MSB-first frame:
-// [15] 0       (don't care for MCP4921 single-channel; keep 0)
+// [15] 0       (don't care for MCP4921 single-channel; keeping as 0)
 // [14] BUF     (1=buffered Vref, 0=unbuffered)
 // [13] GA      (1=1x, 0=2x)
 // [12] SHDN    (1=active, 0=shutdown)
