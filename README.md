@@ -53,6 +53,8 @@ Frequency resolution:
   - `top.sv`             — integrates modules and output formatting for the board peripherals
 - `sim/`
   - testbenches and reference models
+- `data/`
+  - .mem init files
 - `docs/`
   - design notes, diagrams and photos
 
