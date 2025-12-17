@@ -58,6 +58,9 @@ Frequency resolution:
 
 
  ## Hardware Overview
+
+ Figure : System diagram
+ 
 | Component | Description |
 |-----------|-------------|
 | FPGA     | Xilinx Artix-7 Basys3 board |
@@ -66,6 +69,7 @@ Frequency resolution:
 | Output range | 0 - VDD (3.3V) |
 | Accuracy     | TBD |
 
+Figure: Hand soldered MCP4921 breakout
 
 ## System Block Diagram
 
@@ -86,6 +90,16 @@ Simulation and validation for this project was performed using
 - Vivado simulator + `gtkwave` for digital verification
 - Keysight DSOX1102G for waveform validation
 - Python for reference model comparison
+
+## Gallery
+
+Figure : Scope shots for various frequencies
+
+Figure : Scope setup shot
+
+GIF: Waveform switching
+
+GIF : Step frequency 
 
 ## Future Work
 Integration into instrumentation systems (DSO and digital curve tracer)
