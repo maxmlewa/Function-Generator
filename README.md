@@ -1,13 +1,13 @@
 # Function-Generator (FPGA DDFS)
-A function generator core for a digital instrumentation system (.e.g oscilloscopes, curve tracers)
+A high accuracy function generator core for a digital instrumentation system (.e.g oscilloscopes, curve tracers)
 This project focuses on **accurate frequency generation** using a **Direct Digital Frequency Synthesis (DDFS)** architecture.
 
-## Overview
+## General Overview
 At the heart of the design is a **phase accumulator** realization of frequency synthesis. A programmable frequency control word (FCW) advances the phase each sample clock, producing an accurate output frequency.
 
 
 Waveform generation strategy:
-- **Computed directly** from phase (cheap and deterministic):
+- **Computed directly** from phase (logic-cheap and deterministic):
   - DC
   - Square
   - Ramp
@@ -17,7 +17,7 @@ Waveform generation strategy:
 
 The initial version supports **one fixed amplitude** (external analog circuitry handles amplification/attenuation). Later versions will add amplitude control, offsets, and calibration.
 
-## Key Features (v0 target)
+## Key Features (v0)
 
 - DDS-based frequency synthesis (phase accumulator + FCW)
 - Waveform selection: `DC`, `Square`, `Ramp`, `Triangle`, `Sine`
@@ -42,17 +42,23 @@ Frequency resolution:
 `Δf = f_clk / 2^N`
 
 
-## Project Structure (planned)
+## Project Structure
 
 - `hdl/`
-  - `dds_core.sv`        — phase accumulator + FCW interface
+  - `dds_core.sv`        — phase accumulator + FCW interface with wave generation
   - `spi_dac_controller` - spi-based controller for the MCP4921 DAC
-  - `waveforms.sv`       — square/ramp/triangle/DC from phase
   - `sine_lut.sv`        — ROM-based sine LUT
-  - `top.sv`             — integrates modules + output formatting
+  - `top.sv`             — integrates modules and output formatting for the board peripherals
 - `sim/`
-  - testbenches + reference models
+  - testbenches and reference models
 - `docs/`
   - design notes, timing, and interface docs
+
+
+ ## Hardware Overview
+ Component | Description
+ ________________________
+ FPGA     | Xilinx Artix-7 Basys3 board
+ 
  
 
