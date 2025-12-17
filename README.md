@@ -56,9 +56,15 @@ Frequency resolution:
 
 
  ## Hardware Overview
- Component | Description
--------------------------------------
- FPGA     | Xilinx Artix-7 Basys3 board
+| Component | Description |
+|-----------|-------------|
+| FPGA     | Xilinx Artix-7 Basys3 board |
+| DAC      | MCP4921, SPI-based 12-bit |
+| System Clock | 100MHz     |
+| Output range | 0 - VDD (3.3V) |
+| Accuracy     | TBD |
+
+
  
  
 
