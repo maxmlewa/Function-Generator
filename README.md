@@ -65,6 +65,27 @@ Frequency resolution:
 | Accuracy     | TBD |
 
 
- 
- 
+## System Block Diagram
+
+
+Figure: Functional overview of the DDFS -> SPI DAC -> Analog output chain
+
+## Measured Performance
+
+| Parameter | Value |
+|-----------|-------------|
+| Frequency resolution     | Xilinx Artix-7 Basys3 board |
+| Frequency accuracy      | MCP4921, SPI-based 12-bit |
+| Max output frequency |  limited by the DAC update rate, limited by the number of peripherals (sw)     |
+
+
+## Verification
+Simulation and validation for this project was performed using
+- Vivado simulator + `gtkwave` for digital verification
+- Keysight DSOX1102G for waveform validation
+- Python for reference model comparison
+
+## Future Work
+Integration into instrumentation systems (DSO and digital curve tracer)
+
 
