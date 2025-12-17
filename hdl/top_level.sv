@@ -5,7 +5,8 @@ module top_level #(
     parameter int SCLK_DIV = 6,          // divider [#clock cycles(sets DAC update rate )
     parameter int PHASE_WIDTH = 24,
     parameter int LUT_ADDR_BITS = 10,
-    parameter int FS_HZ = 1_041_100    // update rate
+    parameter int FS_HZ = 1_041_100,    // update rate
+    parameter int F_CLK_SYS = 100_000_000
 )(
     input wire clk_100mhz,       // 100 MHz
     // simple controls (map to switches later)
@@ -48,7 +49,8 @@ module top_level #(
         .PHASE_WIDTH (PHASE_WIDTH),
         .AMP_WIDTH (12),
         .LUT_ADDR_BITS (LUT_ADDR_BITS),
-        .FS_HZ (FS_HZ)
+        .FS_HZ (FS_HZ),
+        .F_CLK_SYS (F_CLK_SYS)
     ) u_dds (
         .clk (clk_100mhz),
         .rst (rst),

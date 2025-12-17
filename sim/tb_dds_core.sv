@@ -22,7 +22,8 @@ module tb_dds_core;
     .PHASE_WIDTH(24),
     .AMP_WIDTH(12),
     .LUT_ADDR_BITS(10),
-    .FS_HZ(1_041_100)
+    .FS_HZ(1_041_100),
+    .F_CLK_SYS (100_000_000)
   ) dut (
     .clk(clk),
     .rst(rst),
@@ -33,7 +34,7 @@ module tb_dds_core;
   );
 
 
-  // Helpers 
+  // Helpers for running cycles and showing the acquired samples
   task automatic run_cycles(input int n);
     int k;
     begin
@@ -81,7 +82,7 @@ module tb_dds_core;
     wave_sel  = 3'd3;        // ramp
     freq_word = 16'd10000;   // 10 kHz
     run_cycles(50);
-    show_samples("RAMP @ 10kHz", 10, 200); // smaller stride to see the climbing
+    show_samples("RAMP @ 10kHz", 500, 200); // smaller stride to see the climbing
 
 
 
@@ -89,14 +90,14 @@ module tb_dds_core;
     wave_sel  = 3'd2;        // triangle
     freq_word = 16'd10000;
     run_cycles(50);
-    show_samples("TRI @ 10kHz", 10, 200);
+    show_samples("TRI @ 10kHz", 500, 200);
 
 
     // 4) Square @ 25 kHz (expecting to toggle)
     wave_sel  = 3'd1;        // square
     freq_word = 16'd25000;
     run_cycles(50);
-    show_samples("SQUARE @ 25kHz", 12, 80);
+    show_samples("SQUARE @ 25kHz", 400, 80);
 
 
 
@@ -105,7 +106,7 @@ module tb_dds_core;
     wave_sel  = 3'd0;        // sine
     freq_word = 16'd5000;    // 5 kHz
     run_cycles(200);
-    show_samples("SINE @ 5kHz", 20, 400);
+    show_samples("SINE @ 5kHz", 500, 400);
 
     $display("DDS_CORE TB DONE");
     run_cycles(50);

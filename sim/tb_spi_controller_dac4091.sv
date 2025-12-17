@@ -125,7 +125,7 @@ module tb_spi_controller_dac4091;
             end
             $display("------------------------------------------------------------");
 
-            // small pause between frames (optional)
+            // small pause between frames
             repeat (3) @(posedge clk);
 
         end
