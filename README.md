@@ -49,12 +49,12 @@ Frequency resolution:
 - `hdl/`
   - `dds_core.sv`        — phase accumulator + FCW interface with wave generation
   - `spi_dac_controller` - spi-based controller for the MCP4921 DAC
-  - `sine_lut.sv`        — ROM-based sine LUT
+  - `sine_lut.sv`        — ROM-based sine LUT (BRAM wrapper)
   - `top.sv`             — integrates modules and output formatting for the board peripherals
 - `sim/`
   - testbenches and reference models
 - `docs/`
-  - design notes, timing, and interface docs
+  - design notes, diagrams and photos
 
 
  ## Hardware Overview
