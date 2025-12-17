@@ -28,6 +28,8 @@ The initial version supports **one fixed amplitude** (external analog circuitry 
 
 ## DDS Model (Concept)
 
+Figure: DDS Architecture  Diagram
+
 Let:
 - `f_clk` = sample clock (100 MHz in this case) 
 - `N` = phase accumulator width (24 bits)
@@ -87,5 +89,29 @@ Simulation and validation for this project was performed using
 
 ## Future Work
 Integration into instrumentation systems (DSO and digital curve tracer)
+
+
+## References & Resources
+
+I relied on the following documentation and articles while designing and validating this project:
+
+- **FPGA Board / Hardware Docs**
+  - AMD/Xilinx **Basys 3 Reference Manual** (Digilent):  
+    https://www.amd.com/content/dam/amd/en/documents/university/aup-boards/XUPBasys3/documentation/Basys3_rm_8_22_2014.pdf
+
+- **Course / Lab Infrastructure**
+  - MIT FPGA / 6.205 course site (tooling and workflows):  
+    https://fpga.mit.edu/6205/F25
+
+- **DAC Datasheet**
+  - Microchip **MCP4921/MCP4922** 12-bit SPI DAC datasheet:  
+    https://ww1.microchip.com/downloads/en/devicedoc/21897b.pdf
+
+- **DDS Background**
+  - Analog Devices (Analog Dialogue): **DDS generates high-quality waveforms efficiently**:  
+    https://www.analog.com/en/resources/analog-dialogue/articles/dds-generates-high-quality-waveforms-efficiently.html
+
+### Figures
+All block diagram for this repository are created using **Excalidraw** .
 
 
