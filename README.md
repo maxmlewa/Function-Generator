@@ -57,7 +57,7 @@ Frequency resolution:
 
  ## Hardware Overview
  Component | Description
- ________________________
+-------------------------------------
  FPGA     | Xilinx Artix-7 Basys3 board
  
  
