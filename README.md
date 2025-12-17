@@ -128,4 +128,8 @@ I relied on the following documentation and articles while designing and validat
 ### Figures
 All block diagram for this repository are created using **Excalidraw** .
 
+## License
+This project is licensed under the MIT License — see the `LICENSE` file for details.
+
+
 
